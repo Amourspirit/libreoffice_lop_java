@@ -21,7 +21,7 @@ The code can be found in the [lo/src/main/java/io/github/amourspirt](./lo/src/ma
 
 A few file have been changed or updated to work with the current version of [LibreOffice](https://www.libreoffice.org/) and the development container.
 
-The [lNAUtils.java.win](lo/src/main/java/io/github/amourspirt/utils/JNAUtils.java.win) file was renamed from `NAUtils.java` becuase it is not supported in the development container which is Linux.
+The [JNAUtils.java.win](lo/src/main/java/io/github/amourspirt/utils/JNAUtils.java.win) file was renamed from `NAUtils.java` becuase it is not supported in the development container which is Linux.
 
 The `Draw.createDispatchShape()` has been modified to work with Linux. See the comments in the code for more information.
 
