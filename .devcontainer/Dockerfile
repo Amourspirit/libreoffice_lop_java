@@ -150,7 +150,7 @@ RUN MY_PY_VER=$(python -c "import sys; major, minor = sys.version_info[:2]; prin
     && echo "/workspace/libreoffice_lop_java" >> "/workspace/libreoffice_lop_java/.venv/lib/python$MY_PY_VER/site-packages/ooo_dev_tools.pth" \
     && echo "/usr/lib/libreoffice/program" >> "/workspace/libreoffice_lop_java/.venv/lib/python$MY_PY_VER/site-packages/libreoffice_program.pth"
 
-WORKDIR /workspace/libreoffice_python_app
+WORKDIR /workspace/libreoffice_lop_java
 
 # EXPOSE $CODE_PORT
 COPY ./.devcontainer/root/defaults /defaults
