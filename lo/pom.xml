@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>io.github.amourspirit</groupId>
+	<artifactId>lo</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<properties>
+		<!-- <maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target> -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- libreoffice version should be 7.5.5 for this project but not available yet -->
+		<version.libreoffice>7.5.3</version.libreoffice>
+		<os.mode>linux</os.mode>
+		<!-- you need lot's of local infrastructure to run these tests, so by default we're skipping
+		execution -->
+		<skipTests>true</skipTests>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<!-- https://javaee.github.io/javamail/ -->
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+
+		<!-- See also: https://github.com/eforest/noa-libre -->
+		<!-- https://mvnrepository.com/artifact/org.libreoffice/libreoffice -->
+		<dependency>
+			<groupId>org.libreoffice</groupId>
+			<artifactId>libreoffice</artifactId>
+			<version>${version.libreoffice}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.libreoffice</groupId>
+			<artifactId>unoloader</artifactId>
+			<version>${version.libreoffice}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.libreoffice</groupId>
+			<artifactId>officebean</artifactId>
+			<version>${version.libreoffice}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openoffice</groupId>
+			<artifactId>bootstrap-connector</artifactId>
+			<version>0.1.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.openoffice</groupId>
+					<artifactId>ridl</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.openoffice</groupId>
+					<artifactId>juh</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.openoffice</groupId>
+					<artifactId>unoil</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.openoffice</groupId>
+					<artifactId>jurt</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+</project>

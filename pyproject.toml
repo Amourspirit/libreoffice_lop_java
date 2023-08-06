@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "libreoffice python template"
+name = "libreoffice Java LOP"
 version = "0.1.0"
-description = "Template for creating python projects for LibreOffice"
+description = "LibreOffice Java LibreOffice Programming with Python"
 authors = ["My Name <myemail@address.com>"]
 license = "MIT"
 readme = "README.md"

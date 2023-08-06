@@ -1,3 +1,45 @@
+# LibreOffice Java Programming
+
+## Introduction
+
+This repository is an archive of the **Java LibreOffice Programming** java code by Andrew Davison. The website this code was originally found on is no longer available. [WayBack Machine - Java LibreOffice Programming](https://web.archive.org/web/20221221230318/https://fivedots.coe.psu.ac.th/~ad/jlop/) still has a copy of the website for now.
+
+This code has largely been converted to python and is available in the [OOO Development Tools](https://python-ooo-dev-tools.readthedocs.io/en/latest/index.html) (OooDev) project.
+
+The origin book by Andrew Davison can be found in the [
+LibreOffice Programming ](https://flywire.github.io/lo-p/) that was converted by [flywire](https://github.com/flywire). The current python version is available in the [OooDev - Python LibreOffice Programming](hhttps://python-ooo-dev-tools.readthedocs.io/en/latest/odev/index.html) documents.
+
+## Development Container
+
+This project can run and debug the current java code in a [Development Container](https://code.visualstudio.com/remote/advancedcontainers/overview). The container is based upon the [Live LibreOffice Python](https://github.com/Amourspirit/live-libreoffice-python) template. The container has [LibreOffice](https://www.libreoffice.org/) installed and is accessible via the internal web browser or via your local web browser.
+
+## Code
+
+The code can be found in the [lo/src/main/java/io/github/amourspirt](./lo/src/main/java/io/github/amourspirt) directory.
+
+### Changes
+
+A few file have been changed or updated to work with the current version of [LibreOffice](https://www.libreoffice.org/) and the development container.
+
+The [lNAUtils.java.win](lo/src/main/java/io/github/amourspirt/utils/JNAUtils.java.win) file was renamed from `NAUtils.java` becuase it is not supported in the development container which is Linux.
+
+The `Draw.createDispatchShape()` has been modified to work with Linux. See the comments in the code for more information.
+
+All the Utils code has been placed in `package io.github.amourspirt.utils` package the original code had no package.
+
+### Other Notes
+
+When connecting or starting to [LibreOffice](https://www.libreoffice.org/) the `host` is `localhost` and the `port` is `8100`. In the development container connect with `Lo.loadSocketOffice()` as connection pipe will not work without further configuration.
+
+## Access LibreOffice
+
+Access to LibreOffice is available via the internal web browser or via your local web browser. The port is `3006`. In a development container the URL is `http://localhost:3006`.
+
+See the [Live LibreOffice Python - wiki](https://github.com/Amourspirit/live-libreoffice-python/wiki) for more information.
+
+<details>
+<summary>Original Template Readme</summary>
+
 # Live LibreOffice Python
 
 Live LibreOffice Python is a complete development environment for creating, debugging and testing python scripts. It leverages the power of [VS Code] and has [LibreOffice] baked in that can be access via the internal web browser or via your local web browser which allows for a much more pleasant and consistent debugging experience.
@@ -17,6 +59,8 @@ This templated can also be leveraged to demonstrate working examples of code.
 ## Getting Started
 
 See the [Getting Started](https://github.com/Amourspirit/live-libreoffice-python/wiki/Getting-Started) in the [Wiki](https://github.com/Amourspirit/live-libreoffice-python/wiki).
+
+</details>
 
 [VS Code]:https://code.visualstudio.com/
 

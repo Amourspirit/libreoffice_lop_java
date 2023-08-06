@@ -1,29 +1,29 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
 {
-	"name": "LibreOffice Python App",
+	"name": "LibreOffice Java LOP",
 	"hostRequirements": {
 		"cpus": 4
 	},
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"dockerComposeFile": "docker-compose.yml",
-	"service": "libreoffice_app",
-	"workspaceFolder": "/workspace/libreoffice_python_app",
+	"service": "libreoffice_java_lop",
+	"workspaceFolder": "/workspace/libreoffice_lop_java",
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [3002, 3003],
+	"forwardPorts": [3006, 3007],
 	"portsAttributes": {
-		"3002": {
+		"3006": {
 			"visibility": "private",
 			"label": "LibreOffice http Server"
 		},
-		"3003": {
+		"3007": {
 			"visibility": "private",
 			"label": "LibreOffice https Server"
 		},
-		"2002": {
+		"8100": {
 			"onAutoForward": "silent",
 			"visibility": "private"
 		}
@@ -48,7 +48,10 @@
 				"ms-vscode.test-adapter-converter",
 				"Phu1237.vs-browser",
 				"streetsidesoftware.code-spell-checker",
-				"bungcip.better-toml"
+				"bungcip.better-toml",
+				"vscjava.vscode-maven",
+				"vscjava.vscode-java-pack",
+				"redhat.vscode-xml"
 			],
 			// Adds VS Code settings.json values into the environment.
 			"settings": {
@@ -60,7 +63,7 @@
 						]
 					}
 				},
-				"vs-browser.url": "http://localhost:3002"
+				"vs-browser.url": "http://localhost:3006"
 			}
 		}
 	},

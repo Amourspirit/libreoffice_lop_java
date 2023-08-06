@@ -6,8 +6,10 @@ ARG CONFIG_DIR=/config
 
 # Had Error: Compilation error in psutil/_psutil_linux
 # See Github: https://github.com/giampaolo/psutil//issues/664
+# https://pkgs.alpinelinux.org/packages
 RUN apk update \
     && apk add --no-cache --update htop \
+    ca-certificates \
     linux-headers \
     libc-dev \
     rsync \
@@ -19,7 +21,20 @@ RUN apk update \
     subversion \
     make \
     openssh-client-default \
-    openssh
+    openssh \
+    coreutils \
+    openjdk17 \
+    tzdata \
+    curl \
+    zip \
+    unzip \
+    libreoffice-sdk=7.5.5.2-r0 \
+    maven \
+    && rm -rf /var/cache/apk/* \
+    && update-ca-certificates \
+    && apk add --no-cache nss \
+    && rm -rf /var/cache/apk/*
+
 # https://pkgs.alpinelinux.org/package/edge/main/x86/subversion
 # subversion can be used to download github repos subfolders. Great for downloading just a single folder from a repo.
 # Can be run as examples.
@@ -81,11 +96,11 @@ RUN  /usr/bin/pip install "poetry==$POETRY_VERSION" \
     && if [ -f "$CONFIG_DIR/.tmp/res/req/requirements.txt" ]; then \
     /usr/bin/pip install --no-cache-dir -r "$CONFIG_DIR/.tmp/res/req/requirements.txt"; fi
 
-WORKDIR /workspace/libreoffice_python_app
+WORKDIR /workspace/libreoffice_lop_java
 COPY ./pyproject.toml ./poetry.lock ./
 RUN poetry config virtualenvs.in-project true \
     && poetry install $(test "$RUN_ENV" == production && echo "--no-dev") --no-interaction --no-ansi --no-root --no-cache \
-    && sed -i "s/include-system-site-packages = false/include-system-site-packages = true/g" /workspace/libreoffice_python_app/.venv/pyvenv.cfg
+    && sed -i "s/include-system-site-packages = false/include-system-site-packages = true/g" /workspace/libreoffice_lop_java/.venv/pyvenv.cfg
 
 # Many of these environment variable are required for python and LibreOffice imports to work correctly.
 # For instance without proper environment vars: from com.sun.star.frame import XComponentLoader # results in error
@@ -98,18 +113,42 @@ RUN poetry config virtualenvs.in-project true \
 #   This is by design so that LibreOfffice will use the virtual environment python by default.
 #   This is done by adding the virtual environment path to the beginning of the PATH environment variable.
 #   When Poetry installls the virtual environment it will be modified to include the system site packages.
-ENV PATH="/workspace/libreoffice_python_app/.venv/bin:/usr/lib/libreoffice/program:$PATH" \
+ENV PATH="/workspace/libreoffice_lop_java/.venv/bin:/usr/lib/libreoffice/program:$PATH" \
     URE_BOOTSTRAP="file:///usr/lib/libreoffice/program/fundamentalrc" \
     # PYTHONPATH="/usr/lib/libreoffice/program/../program:$PYTHONPATH" \
     PYTHONPATH="/usr/lib/libreoffice/program:$PYTHONPATH" \
     UNO_PATH="/usr/lib/libreoffice/program" \
-    LD_LIBRARY_PATH="/usr/lib/jvm/java-1.8-openjdk/jre/lib/amd64/client:/usr/lib/jvm/java-1.8-openjdk/jre/lib/amd64/server:/usr/lib/jvm/java-1.8-openjdk/jre/lib/amd64/native_threads:/usr/lib/jvm/java-1.8-openjdk/jre/lib/amd64"
+    LD_LIBRARY_PATH=/usr/lib/libreoffice/sdk/lib:/config/libreoffice7.5_sdk/LINUXexample.out/lib:/usr/lib/libreoffice/program:/usr/lib/jvm/java-17-openjdk/jre/lib/server:/usr/lib/jvm/java-17-openjdk/jre/lib \
+    CLASSPATH=/usr/lib/libreoffice/program/classes/libreoffice.jar:/usr/lib/libreoffice/program/classes/unoloader.jar: \
+    OFFICE_HOME=/usr/lib/libreoffice \
+    OFFICE_PROGRAM_PATH=/usr/lib/libreoffice/program \
+    OO_SDK_CAT_HOME=/bin \
+    OO_SDK_CPP_HOME=/usr/bin \
+    OO_SDK_HOME=/usr/lib/libreoffice/sdk \
+    OO_SDK_JAVA_HOME=/usr/lib/jvm/default-jvm \
+    OO_SDK_MAKE_HOME=/usr/bin \
+    OO_SDK_NAME=libreoffice7.5_sdk \
+    OO_SDK_OUT=/config/libreoffice7.5_sdk \
+    OO_SDK_OUTPUT_DIR=$HOME \
+    OO_SDK_SED_HOME=/bin \
+    OO_SDK_URE_BIN_DIR=/usr/lib/libreoffice/program \
+    OO_SDK_URE_JAVA_DIR=/usr/lib/libreoffice/program/classes \
+    OO_SDK_URE_LIB_DIR=/usr/lib/libreoffice/program \
+    OO_SDK_ZIP_HOME=/usr/bin \
+    SDK_AUTO_DEPLOYMENT=NO \
+    SDKMAN_CANDIDATES_API=https://api.sdkman.io/2 \
+    SDKMAN_DIR=/usr/local/sdkman \
+    SDKMAN_PLATFORM=linuxx64 \
+    NO_PATH=/usr/lib/libreoffice/program \
+    URE_BOOTSTRAP="file:///usr/lib/libreoffice/program/fundamentalrc" \
+    JAVA_HOME=/usr/lib/jvm/default-jvm
 
+ENV PATH=${OO_SDK_HOME}/bin:${OO_SDK_OUT}/LINUXexample.out/bin:${OO_SDK_URE_BIN_DIR}:${OFFICE_PROGRAM_PATH}:${PATH}:${PATH}
 # Cannot persist python version into build here so, get the python version and run all the commands the use it.
 RUN MY_PY_VER=$(python -c "import sys; major, minor = sys.version_info[:2]; print(f'{major}.{minor}');" ) \
     && echo "Python version: $MY_PY_VER" \
-    && echo "/workspace/libreoffice_python_app" >> "/workspace/libreoffice_python_app/.venv/lib/python$MY_PY_VER/site-packages/ooo_dev_tools.pth" \
-    && echo "/usr/lib/libreoffice/program" >> "/workspace/libreoffice_python_app/.venv/lib/python$MY_PY_VER/site-packages/libreoffice_program.pth"
+    && echo "/workspace/libreoffice_lop_java" >> "/workspace/libreoffice_lop_java/.venv/lib/python$MY_PY_VER/site-packages/ooo_dev_tools.pth" \
+    && echo "/usr/lib/libreoffice/program" >> "/workspace/libreoffice_lop_java/.venv/lib/python$MY_PY_VER/site-packages/libreoffice_program.pth"
 
 WORKDIR /workspace/libreoffice_python_app
 

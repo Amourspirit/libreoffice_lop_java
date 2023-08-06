@@ -5,6 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "Java Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
@@ -21,7 +27,7 @@
             "purpose": [
                 "debug-test"
             ],
-            "console":"integratedTerminal"
+            "console": "integratedTerminal"
         },
         {
             "name": "Python: Current All Code",
@@ -30,6 +36,6 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": false
-        },
+        }
     ]
 }

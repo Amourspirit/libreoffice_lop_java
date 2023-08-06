@@ -1,4 +1,14 @@
 {
+    "java.project.sourcePaths": [
+        "lo/src/main/java/io/github/amourspirt",
+        "demo/src/main/java/com/example"
+    ],
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "/usr/lib/libreoffice/program/classes/libreoffice.jar",
+        "/usr/lib/libreoffice/program/classes/unoloader.jar"
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive",
     "terminal.integrated.shellIntegration.enabled": true,
     "python.formatting.provider": "black",
     "testExplorer.useNativeTesting": false,
@@ -103,6 +113,7 @@
         "Addin",
         "addrs",
         "alignmentbar",
+        "amourspirt",
         "apert",
         "APSO",
         "arrowsbar",
