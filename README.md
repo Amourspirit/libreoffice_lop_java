@@ -9,6 +9,8 @@ This code has largely been converted to python and is available in the [OOO Deve
 The origin book by Andrew Davison can be found in the [
 LibreOffice Programming ](https://flywire.github.io/lo-p/) that was converted by [flywire](https://github.com/flywire). The current python version is available in the [OooDev - Python LibreOffice Programming](hhttps://python-ooo-dev-tools.readthedocs.io/en/latest/odev/index.html) documents.
 
+I discovered another archive on GitHub, [jlop-code](https://github.com/hosseinn/jlop-code/tree/main), it currently does not have a development container but may be useful for othere reasons.
+
 ## Development Container
 
 This project can run and debug the current java code in a [Development Container](https://code.visualstudio.com/remote/advancedcontainers/overview). The container is based upon the [Live LibreOffice Python](https://github.com/Amourspirit/live-libreoffice-python) template. The container has [LibreOffice](https://www.libreoffice.org/) installed and is accessible via the internal web browser or via your local web browser.
